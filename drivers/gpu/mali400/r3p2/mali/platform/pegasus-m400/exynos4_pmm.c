@@ -87,7 +87,13 @@ typedef struct mali_runtime_resumeTag{
 	unsigned int step;
 }mali_runtime_resume_table;
 
+#if defined(CONFIG_CPU_EXYNOS4212) || defined(CONFIG_CPU_EXYNOS4412)
 mali_runtime_resume_table mali_runtime_resume = {266, 900000, 1};
+#elif defined(CONFIG_EXYNOS4210_1400MHZ_SUPPORT)
+mali_runtime_resume_table mali_runtime_resume = {134, 950000, 0};
+#else
+mali_runtime_resume_table mali_runtime_resume = {100, 950000, 0};
+#endif
 
 /* dvfs table */
 mali_dvfs_table mali_dvfs[MALI_DVFS_STEPS]={
@@ -98,7 +104,7 @@ mali_dvfs_table mali_dvfs[MALI_DVFS_STEPS]={
 			/* step 3 */{440  ,1000000	,1025000   ,85   , 90},
 			/* step 4 */{533  ,1000000	,1075000   ,95   ,100} };
 #else
-#ifdef CONFIG_EXYNOS4210_1400MHZ_SUPPORT
+#if defined(CONFIG_EXYNOS4210_1400MHZ_SUPPORT)
 			/* step 0 */{134  ,1000000	, 950000   , 0   , 85},
 #else
 			/* step 0 */{100  ,1000000	, 950000   , 0   , 85},
