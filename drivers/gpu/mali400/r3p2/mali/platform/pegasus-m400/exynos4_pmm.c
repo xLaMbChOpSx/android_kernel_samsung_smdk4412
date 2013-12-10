@@ -38,7 +38,7 @@
 #include <linux/workqueue.h>
 
 #ifdef CONFIG_CPU_EXYNOS4210
-#define MALI_DVFS_STEPS 2
+#define MALI_DVFS_STEPS 3
 #define MALI_DVFS_WATING 10 /* msec */
 #define MALI_DVFS_DEFAULT_STEP 0
 #else
@@ -109,7 +109,8 @@ mali_dvfs_table mali_dvfs[MALI_DVFS_STEPS]={
 #else
 			/* step 0 */{100  ,1000000	, 950000   , 0   , 85},
 #endif
-			/* step 1 */{267  ,1000000	,1000000   ,75   ,100} };
+			/* step 1 */{200  ,1000000	,1000000   ,70   ,90},
+			/* step 2 */{267  ,1000000	,1000000   ,80   ,100} };
 #endif
 
 #ifdef EXYNOS4_ASV_ENABLED
@@ -184,9 +185,12 @@ static unsigned int asv_3d_volt_4210_12_table[MALI_DVFS_STEPS][ASV_LEVEL_4210_12
 };
 
 static unsigned int asv_3d_volt_4210_14_table[MALI_DVFS_STEPS][ASV_LEVEL_4210_14] = {
-	{  1000000,  1000000,   950000,   950000,   950000},	/* L1(134Mhz) */
+	{  1000000,  1000000,   950000,   950000,   950000},	/* L2(134Mhz) */
 #if (MALI_DVFS_STEPS > 1)
+	{  1000000,  1000000,   950000,   950000,   950000},	/* L1(200Mhz) */
+#if (MALI_DVFS_STEPS > 2)
 	{  1100000,  1100000,  1000000,  1000000,   950000},	/* L0(267Mhz) */
+#endif
 #endif
 };
 #endif
